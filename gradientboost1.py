@@ -1,3 +1,4 @@
+# coding: UTF-8
 print(__doc__)
 
 # Author: Peter Prettenhofer <peter.prettenhofer@gmail.com>
@@ -6,23 +7,29 @@ print(__doc__)
 
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
 from sklearn import ensemble
 from sklearn import datasets
 
-
+# 何をしてる？データをガウス分布に当てはめてる？
 X, y = datasets.make_hastie_10_2(n_samples=12000, random_state=1)
+# 配列の要素のデータ型を変形
 X = X.astype(np.float32)
 
 # map labels from {-1, 1} to {0, 1}
+# np.unique(array変数)でarray変数内の重複している要素を削除した配列を返す
 labels, y = np.unique(y, return_inverse=True)
 
+# 訓練用とテスト用でデータを分割
 X_train, X_test = X[:2000], X[2000:]
 y_train, y_test = y[:2000], y[2000:]
 
+# パラメータを設定
 original_params = {'n_estimators': 1000, 'max_leaf_nodes': 4, 'max_depth': None, 'random_state': 2,
                    'min_samples_split': 5}
 
+# 新規の描画画面を作成
 plt.figure()
 
 for label, color, setting in [('No shrinkage', 'orange',
@@ -56,3 +63,5 @@ plt.xlabel('Boosting Iterations')
 plt.ylabel('Test Set Deviance')
 
 plt.show()
+
+sys.exit(5)
